@@ -23,10 +23,12 @@ namespace Boiler.Views
             this.AppCopyright = GetAssemblyCopyright();
             this.uriBlog = new Uri("https://iktcao.github.io/");
             this.uriGithub = new Uri("https://github.com/iktcao/");
-            this.uriEmail = new Uri("mailto:iktcao@gmail.com?subject=关于汽包水循环计算程序的反馈&body=反馈如下:");
+            this.uriEmail = new Uri("mailto:iktcao@gmail.com?subject=关于蒸汽发生器自然循环计算程序的反馈&body=反馈如下:");
 
             this.SupportInfos = new ObservableCollection<SupportInfo>()
             {
+                new SupportInfo("/Asserts/Images/SEUIF97.jpg",
+                    "https://github.com/PySEE/SEUIF97/", "SEUIF97"),
                 new SupportInfo("/Asserts/Images/MVVMLight.png",
                     "http://www.mvvmlight.net/", "MVVM Light Toolkit"),
                 new SupportInfo("/Asserts/Images/MahApps.Metro.png",

@@ -127,10 +127,10 @@ namespace Boiler.ViewModel
         // 饱和水的粘度，cP
         public double WaterViscosity
         {
-            get { return WaterCycle.WaterViscosity*1000; }
+            get { return WaterCycle.WaterViscosity * 1000; }
             set
             {
-                WaterCycle.WaterViscosity = value/1000;
+                WaterCycle.WaterViscosity = value / 1000;
                 this.RaisePropertyChanged("WaterViscosity");
             }
         }
@@ -138,10 +138,10 @@ namespace Boiler.ViewModel
         // 饱和蒸汽的粘度，cP
         public double SteamViscosity
         {
-            get { return WaterCycle.SteamViscosity*1000; }
+            get { return WaterCycle.SteamViscosity * 1000; }
             set
             {
-                WaterCycle.SteamViscosity = value/1000;
+                WaterCycle.SteamViscosity = value / 1000;
                 this.RaisePropertyChanged("SteamViscosity");
             }
         }
@@ -190,13 +190,13 @@ namespace Boiler.ViewModel
             }
         }
 
-        // 上升管实际管内径，m
+        // 上升管实际管内径，mm
         public double UpPipeID
         {
-            get { return WaterCycle.UpPipeID; }
+            get { return WaterCycle.UpPipeID * 1000; }
             set
             {
-                WaterCycle.UpPipeID = value;
+                WaterCycle.UpPipeID = value / 1000;
                 this.RaisePropertyChanged("UpPipeID");
             }
         }
@@ -245,13 +245,13 @@ namespace Boiler.ViewModel
             }
         }
 
-        // 下降管实际管内径，m
+        // 下降管实际管内径，mm
         public double DownPipeID
         {
-            get { return WaterCycle.DownPipeID; }
+            get { return WaterCycle.DownPipeID * 1000; }
             set
             {
-                WaterCycle.DownPipeID = value;
+                WaterCycle.DownPipeID = value / 1000;
                 this.RaisePropertyChanged("DownPipeID");
             }
         }
@@ -281,10 +281,10 @@ namespace Boiler.ViewModel
         // 管内壁绝对粗糙度，m
         public double Roughness
         {
-            get { return WaterCycle.Roughness*1000; }
+            get { return WaterCycle.Roughness * 1000; }
             set
             {
-                WaterCycle.Roughness = value/1000;
+                WaterCycle.Roughness = value / 1000;
                 this.RaisePropertyChanged("Roughness");
             }
         }
@@ -387,7 +387,7 @@ namespace Boiler.ViewModel
                 this.RaisePropertyChanged("FlowRegime");
             }
         }
-        #endregion
+        #endregion 代理属性
 
         #endregion
 
@@ -477,7 +477,7 @@ namespace Boiler.ViewModel
             OpenFileDialog dialog = new OpenFileDialog()
             {
                 Title = "打开",
-                Filter = "蒸汽发生器自然循环计算书(*.tsg)|*.tsg"
+                Filter = "蒸汽发生器计算书(*.tsg)|*.tsg"
             };
 
             if (dialog.ShowDialog() == true)
@@ -558,8 +558,8 @@ namespace Boiler.ViewModel
             SaveFileDialog dialog = new SaveFileDialog()
             {
                 Title = "另存为",
-                FileName = "新建蒸汽发生器自然循环循环计算书",
-                Filter = "蒸汽发生器自然循环计算书(*.tsg)|*.tsg"
+                FileName = "新建蒸汽发生器计算书",
+                Filter = "蒸汽发生器计算书(*.tsg)|*.tsg"
             };
 
             if (dialog.ShowDialog() == true)

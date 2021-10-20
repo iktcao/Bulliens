@@ -183,6 +183,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Asserts\Images\SEUIF97.jpg" />
     <Content Include="thirdLib\CommonServiceLocator.dll" />
     <Content Include="thirdLib\ControlzEx.dll" />
     <Content Include="thirdLib\GalaSoft.MvvmLight.dll" />

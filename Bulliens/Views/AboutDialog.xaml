@@ -57,7 +57,7 @@
                 <TextBlock Text="参考文献:" Margin="10,5"/>
                 <Border Height="80" Margin="10,0,10,10" BorderBrush="LightGray" BorderThickness="1">
                     <TextBlock TextWrapping="Wrap" Margin="5"
-                               Text="蒸汽发生器工艺设计，炼油设计" />
+                               Text="第二炼油设计研究院，蒸汽发生器工艺设计，炼油设计，1980" />
                 </Border>
             </StackPanel>
             <StackPanel Grid.Column="1">

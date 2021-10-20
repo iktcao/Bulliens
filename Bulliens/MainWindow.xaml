@@ -173,6 +173,7 @@
 
                     <uc:MyDataBox Grid.Row="0" Grid.Column="0" Margin="5"
                                   DataName="高度差" DataUnit="m"
+                                  DataToolTip="汽包与换热器中心线的标高差"
                                   DataValue="{Binding Height, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,
                                         ValidatesOnDataErrors=True, Converter={StaticResource myConv}}"/>
                     <uc:MyDataBox Grid.Row="0" Grid.Column="1" Margin="5"
@@ -184,11 +185,13 @@
                     <TextBlock Text="下降管参数" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" Margin="0,15,0,5"/>
 
                     <uc:MyDataBox Grid.Row="2" Grid.Column="0" Margin="5"
-                                  DataName="公称直径" DataUnit="" IsDataEnabled="{Binding IsRating}"
+                                  DataName="公称直径" DataUnit="mm" IsDataEnabled="{Binding IsRating}"
+                                  DataToolTip="核算模式下，计算以管道内径为准，修改该参数不影响计算结果。"
                                   DataValue="{Binding UpPipeDN, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat={}{0:N0},
                                         ValidatesOnDataErrors=True, Converter={StaticResource myConv}}"/>
                     <uc:MyDataBox Grid.Row="2" Grid.Column="1" Margin="5"
                                   DataName="" DataUnit="mm" IsDataEnabled="{Binding IsRating}"
+                                  DataToolTip="核算模式下，计算以管道内径为准，修改该参数不影响计算结果。"
                                   DataValue="{Binding DownPipeDN, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat={}{0:N0},
                                         ValidatesOnDataErrors=True, Converter={StaticResource myConv}}"/>
                     <uc:MyDataBox Grid.Row="3" Grid.Column="0" Margin="5"
@@ -200,35 +203,41 @@
                                   DataValue="{Binding DownPipeCount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat={}{0:N0},
                                         ValidatesOnDataErrors=True, Converter={StaticResource myConv}}"/>
                     <uc:MyDataBox Grid.Row="4" Grid.Column="0" Margin="5"
-                                  DataName="实际内径" DataUnit="" IsDataEnabled="{Binding IsRating}"
+                                  DataName="管道内径" DataUnit="mm" IsDataEnabled="{Binding IsRating}"
                                   DataValue="{Binding UpPipeID, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,
                                         ValidatesOnDataErrors=True, Converter={StaticResource myConv}}"/>
                     <uc:MyDataBox Grid.Row="4" Grid.Column="1" Margin="5"
-                                  DataName="" DataUnit="m" IsDataEnabled="{Binding IsRating}"
+                                  DataName="" DataUnit="mm" IsDataEnabled="{Binding IsRating}"
                                   DataValue="{Binding DownPipeID, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,
                                         ValidatesOnDataErrors=True, Converter={StaticResource myConv}}"/>
                     <uc:MyDataBox Grid.Row="5" Grid.Column="0" Margin="5"
-                                  DataName="水平直管总长度" DataUnit="" DataFontSize="11"
+                                  DataName="水平管长度" DataUnit="m"
+                                  DataToolTip="上升管道中呈水平布置的直管段总长度"
                                   DataValue="{Binding UpHorizontalPipeLength, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,
                                         ValidatesOnDataErrors=True, Converter={StaticResource myConv}}"/>
                     <uc:MyDataBox Grid.Row="5" Grid.Column="1" Margin="5"
                                   DataName="" DataUnit="m"
+                                  DataToolTip="下降管道中呈水平布置的直管段总长度"
                                   DataValue="{Binding DownHorizontalPipeLength, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,
                                         ValidatesOnDataErrors=True, Converter={StaticResource myConv}}"/>
                     <uc:MyDataBox Grid.Row="6" Grid.Column="0" Margin="5"
-                                  DataName="管件总当量长度" DataUnit="" DataFontSize="11"
+                                  DataName="管件 ∑L/D" DataUnit=""
+                                  DataToolTip="上升管道中，所有已知当量长度管件的Le/D值之和"
                                   DataValue="{Binding UpToltalFittingLD, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,
                                         ValidatesOnDataErrors=True, Converter={StaticResource myConv}}"/>
                     <uc:MyDataBox Grid.Row="6" Grid.Column="1" Margin="5"
-                                  DataName="" DataUnit="∑L/D"
+                                  DataToolTip="下降管道中，所有已知当量长度管件的Le/D值之和"
+                                  DataName=""
                                   DataValue="{Binding DownToltalFittingLD, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,
                                         ValidatesOnDataErrors=True, Converter={StaticResource myConv}}"/>
                     <uc:MyDataBox Grid.Row="7" Grid.Column="0" Margin="5"
-                                  DataName="管件总阻力系数" DataUnit="" DataFontSize="11"
+                                  DataName="管件 ∑K" DataUnit=""
+                                  DataToolTip="上升管道中，所有已知局部阻力系数管件的K值之和"
                                   DataValue="{Binding UpToltalFittingK, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,
                                         ValidatesOnDataErrors=True, Converter={StaticResource myConv}}"/>
                     <uc:MyDataBox Grid.Row="7" Grid.Column="1" Margin="5"
-                                  DataName="" DataUnit="∑K"
+                                  DataName=""
+                                  DataToolTip="下降管道中，所有已知局部阻力系数管件的K值之和"
                                   DataValue="{Binding DownToltalFittingK, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,
                                         ValidatesOnDataErrors=True, Converter={StaticResource myConv}}"/>
                 </Grid>
