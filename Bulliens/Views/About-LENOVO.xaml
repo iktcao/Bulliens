@@ -1,0 +1,51 @@
+﻿<Window x:Class="SteamDome.Views.About"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SteamDome.Views"
+        mc:Ignorable="d"
+        Title="关于" Height="460" Width="580" WindowStartupLocation="CenterOwner" ResizeMode="NoResize">
+    <Window.Resources>
+        <DataTemplate x:Key="MyTemplate" DataType="{x:Type local:IconInfo}">
+            <Label Height="30" Width="500">
+                <Label.Content>
+                    <DockPanel>
+                        <Image Source="{Binding Icon}" DockPanel.Dock="Left" Width="20" Height="20"/>
+                        <TextBlock Text=" Icon made by " DockPanel.Dock="Left" Margin="10,0,0,0"/>
+                        <TextBlock DockPanel.Dock="Left">
+                                <Hyperlink NavigateUri="{Binding Url}" Name="linkHelp" ToolTip="Author Credits" Click="linkHelp_Click_1">
+                                    <Hyperlink.Inlines>
+                                        <Run Text="{Binding Author}"/>
+                                    </Hyperlink.Inlines>
+                                </Hyperlink>
+                        </TextBlock>
+                        <TextBlock Text="from www.flaticon.com" DockPanel.Dock="Left" Margin="5,0,0,0"/>
+                    </DockPanel>
+                </Label.Content>
+            </Label>
+        </DataTemplate>
+    </Window.Resources>
+    
+    <Grid>
+        <StackPanel Background="WhiteSmoke">
+            <StackPanel Orientation="Horizontal" Margin="0,10,0,5">
+                <Image Source="/Asserts/Logo.png"
+                   Width="60" Height="60" HorizontalAlignment="Left" Margin="10,0" VerticalAlignment="Top"/>
+                <TextBlock Text="XXXXX Application"
+                   FontWeight="Bold" FontSize="30" Margin="10" VerticalAlignment="Center"/>
+            </StackPanel>
+            <Label Content="Copyright © 2017 by XXXXXX Corporation. All Rights Reserved."
+                   HorizontalAlignment="Right" Margin="10,0"/>
+            <GroupBox Header="软件信息"
+                      BorderBrush="LightBlue" BorderThickness="2" Height="60" Margin="10,5">
+                <Label Name="pbc_version" Content="" HorizontalAlignment="Left" Margin="135,5,0,0" VerticalAlignment="Top"/>
+            </GroupBox>
+            <Label Content="软件支持:" Margin="10,5"/>
+            <ListView x:Name="lvIconInfo" ItemTemplate="{StaticResource  MyTemplate}"
+                      Height="150" Margin="10,0,10,5"/>
+            <TextBlock Name="WarningInfo" Text="Warning:" TextWrapping="Wrap" TextAlignment="Justify"
+                   HorizontalAlignment="Left" Margin="10,5"/>
+        </StackPanel>
+    </Grid>
+</Window>

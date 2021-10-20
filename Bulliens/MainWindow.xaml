@@ -1,0 +1,267 @@
+﻿<mah:MetroWindow x:Class="Boiler.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Boiler"
+        xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        xmlns:h="clr-namespace:Boiler.Helper"
+        xmlns:uc="clr-namespace:Boiler.Controls"
+        xmlns:Dialogs="clr-namespace:MahApps.Metro.Controls.Dialogs;assembly=MahApps.Metro"
+        DataContext="{Binding Path=Main, Source={StaticResource Locator}}"
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
+        GlowBrush="{DynamicResource MahApps.Brushes.Accent}"
+        Title="TyroTools - Bulliens"
+        TitleCharacterCasing="Normal"
+        Height="840" Width="640" Icon="Steam.ico" ResizeMode="CanResizeWithGrip">
+
+    <mah:MetroWindow.TitleTemplate>
+        <DataTemplate>
+            <TextBlock Text="{TemplateBinding Content}" TextTrimming="CharacterEllipsis"
+                   VerticalAlignment="Center" Margin="8 -1 8 0"
+                   FontWeight="Regular" FontSize="18" FontFamily="Microsoft YaHei" />
+        </DataTemplate>
+    </mah:MetroWindow.TitleTemplate>
+
+    <mah:MetroWindow.RightWindowCommands>
+        <mah:WindowCommands>
+            <Button x:Name="btnDonate" Content="&#xe7ee;" FontFamily="Asserts/Fonts/#iconfont" FontSize="20"
+                    Click="btnDonate_Click" ToolTip="打赏"/>
+            <Button x:Name="btnAbout" Content="&#xe605;" FontFamily="Asserts/Fonts/#iconfont" FontSize="20"
+                    Click="btnAbout_Click" ToolTip="关于"/>
+        </mah:WindowCommands>
+    </mah:MetroWindow.RightWindowCommands>
+
+
+    <Window.Resources>
+        <h:DoubleToString x:Key="myConv"/>
+    </Window.Resources>
+
+    <StackPanel>
+        <!--工具栏"-->
+        <Border BorderThickness="3" BorderBrush="#f1f1f1" Margin="4,5,4,0" CornerRadius="3">
+            <StackPanel Background="#f1f1f1" Orientation="Horizontal">
+
+                <Button Margin="5,0" Command="{Binding OpenCmd}" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
+                    <Button.Content>
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                            <TextBlock Text="&#xe64d;" FontFamily="Asserts/Fonts/#iconfont" VerticalAlignment="Center"
+                                   FontSize="22" Foreground="DodgerBlue"/>
+                            <TextBlock Text="打开" VerticalAlignment="Center" Margin="5,0"/>
+                        </StackPanel>
+                    </Button.Content>
+                </Button>
+
+                <Button Margin="5,0" Command="{Binding SaveCmd}" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
+                    <Button.Content>
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                            <TextBlock Text="&#xe616;" FontFamily="Asserts/Fonts/#iconfont" VerticalAlignment="Center"
+                                   FontSize="22" Foreground="DodgerBlue"/>
+                            <TextBlock Text="保存" VerticalAlignment="Center" Margin="5,0"/>
+                        </StackPanel>
+                    </Button.Content>
+                </Button>
+
+                <Button Margin="5,0" Command="{Binding SaveAsCmd}" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
+                    <Button.Content>
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                            <TextBlock Text="&#xe655;" FontFamily="Asserts/Fonts/#iconfont" VerticalAlignment="Center"
+                                   FontSize="22" Foreground="DodgerBlue"/>
+                            <TextBlock Text="另存为" VerticalAlignment="Center" Margin="5,0"/>
+                        </StackPanel>
+                    </Button.Content>
+                </Button>
+
+                <Button Margin="5,0" Command="{Binding RunCmd}" IsEnabled="{Binding IsValid}" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
+                    <Button.Content>
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                            <TextBlock Text="&#xe6a8;" FontFamily="Asserts/Fonts/#iconfont" VerticalAlignment="Center"
+                                   FontSize="22" Foreground="DodgerBlue"/>
+                            <TextBlock Text="运行" VerticalAlignment="Center" Margin="5,0"/>
+                        </StackPanel>
+                    </Button.Content>
+                </Button>
+            </StackPanel>
+        </Border>
+
+        <StackPanel Margin="5">
+            <GroupBox Header="模式" Margin="0,5">
+                <StackPanel Margin="5" Orientation="Horizontal">
+                    <RadioButton Content="设计" GroupName="RunPattern" IsChecked="{Binding IsDesign}" 
+                                 Command="{Binding ChangePattern}" Margin="5,0" FontSize="12" FontFamily="Microsoft YaHei"/>
+                    <RadioButton Content="校核" GroupName="RunPattern" IsChecked="{Binding IsRating}"
+                                 Command="{Binding ChangePattern}" Margin="20,0" FontSize="12" FontFamily="Microsoft YaHei"/>
+                </StackPanel>
+            </GroupBox>
+
+            <GroupBox Header="工艺参数" Margin="0,5">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <uc:MyDataBox Grid.Row="0" Grid.Column="0" Margin="5"
+                                  DataName="饱和压力" DataUnit="MPa(G)"
+                                  DataValue="{Binding SatPress, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,
+                                        ValidatesOnDataErrors=True, Converter={StaticResource myConv}}"/>
+                    <uc:MyDataBox Grid.Row="0" Grid.Column="1" Margin="5"
+                                  DataName="产汽量" DataUnit="kg/h"
+                                  DataValue="{Binding SteamProduction, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, 
+                                        ValidatesOnDataErrors=True, Converter={StaticResource myConv}}"/>
+                </Grid>
+            </GroupBox>
+
+            <GroupBox Header="物性参数" Margin="0,5">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+
+                    <uc:MyDataBox Grid.Row="0" Grid.Column="0" Margin="5"
+                                  DataName="饱和温度" DataUnit="℃" IsDataReadOnly="True"
+                                  DataValue="{Binding SatTemp, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat={}{0:G5},
+                                        ValidatesOnDataErrors=True, Converter={StaticResource myConv}}"/>
+                    <uc:MyDataBox Grid.Row="0" Grid.Column="1" Margin="5"
+                                  DataName="特性参数" DataUnit="" IsDataReadOnly="True"
+                                  DataValue="{Binding SatPara, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat={}{0:G5},
+                                        ValidatesOnDataErrors=True, Converter={StaticResource myConv}}"/>
+                    <uc:MyDataBox Grid.Row="1" Grid.Column="0" Margin="5"
+                                  DataName="水相密度" DataUnit="kg/m3" IsDataReadOnly="True"
+                                  DataValue="{Binding WaterDensity, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat={}{0:G5},
+                                        ValidatesOnDataErrors=True, Converter={StaticResource myConv}}"/>
+                    <uc:MyDataBox Grid.Row="1" Grid.Column="1" Margin="5"
+                                  DataName="蒸汽密度" DataUnit="kg/m3" IsDataReadOnly="True"
+                                  DataValue="{Binding SteamDensity, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat={}{0:G5},
+                                        ValidatesOnDataErrors=True, Converter={StaticResource myConv}}"/>
+                    <uc:MyDataBox Grid.Row="2" Grid.Column="0" Margin="5"
+                                  DataName="水相粘度" DataUnit="mPa∙s" IsDataReadOnly="True"
+                                  DataValue="{Binding WaterViscosity, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat={}{0:G5},
+                                        ValidatesOnDataErrors=True, Converter={StaticResource myConv}}"/>
+                    <uc:MyDataBox Grid.Row="2" Grid.Column="1" Margin="5"
+                                  DataName="蒸汽粘度" DataUnit="mPa∙s" IsDataReadOnly="True"
+                                  DataValue="{Binding SteamViscosity, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat={}{0:G5},
+                                        ValidatesOnDataErrors=True, Converter={StaticResource myConv}}"/>
+                </Grid>
+            </GroupBox>
+
+            <GroupBox Header="结构参数" Margin="0,5">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+
+                    <uc:MyDataBox Grid.Row="0" Grid.Column="0" Margin="5"
+                                  DataName="高度差" DataUnit="m"
+                                  DataValue="{Binding Height, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,
+                                        ValidatesOnDataErrors=True, Converter={StaticResource myConv}}"/>
+                    <uc:MyDataBox Grid.Row="0" Grid.Column="1" Margin="5"
+                                  DataName="管壁粗糙度" DataUnit="mm"
+                                  DataValue="{Binding Roughness, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,
+                                        ValidatesOnDataErrors=True, Converter={StaticResource myConv}}"/>
+
+                    <TextBlock Text="上升管参数" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" Margin="0,15,0,5"/>
+                    <TextBlock Text="下降管参数" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" Margin="0,15,0,5"/>
+
+                    <uc:MyDataBox Grid.Row="2" Grid.Column="0" Margin="5"
+                                  DataName="公称直径" DataUnit="" IsDataEnabled="{Binding IsRating}"
+                                  DataValue="{Binding UpPipeDN, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat={}{0:N0},
+                                        ValidatesOnDataErrors=True, Converter={StaticResource myConv}}"/>
+                    <uc:MyDataBox Grid.Row="2" Grid.Column="1" Margin="5"
+                                  DataName="" DataUnit="mm" IsDataEnabled="{Binding IsRating}"
+                                  DataValue="{Binding DownPipeDN, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat={}{0:N0},
+                                        ValidatesOnDataErrors=True, Converter={StaticResource myConv}}"/>
+                    <uc:MyDataBox Grid.Row="3" Grid.Column="0" Margin="5"
+                                  DataName="管子根数" DataUnit="" IsDataEnabled="{Binding IsRating}"
+                                  DataValue="{Binding UpPipeCount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat={}{0:N0},
+                                        ValidatesOnDataErrors=True, Converter={StaticResource myConv}}"/>
+                    <uc:MyDataBox Grid.Row="3" Grid.Column="1" Margin="5"
+                                  DataName="" DataUnit="" IsDataEnabled="{Binding IsRating}"
+                                  DataValue="{Binding DownPipeCount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat={}{0:N0},
+                                        ValidatesOnDataErrors=True, Converter={StaticResource myConv}}"/>
+                    <uc:MyDataBox Grid.Row="4" Grid.Column="0" Margin="5"
+                                  DataName="实际内径" DataUnit="" IsDataEnabled="{Binding IsRating}"
+                                  DataValue="{Binding UpPipeID, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,
+                                        ValidatesOnDataErrors=True, Converter={StaticResource myConv}}"/>
+                    <uc:MyDataBox Grid.Row="4" Grid.Column="1" Margin="5"
+                                  DataName="" DataUnit="m" IsDataEnabled="{Binding IsRating}"
+                                  DataValue="{Binding DownPipeID, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,
+                                        ValidatesOnDataErrors=True, Converter={StaticResource myConv}}"/>
+                    <uc:MyDataBox Grid.Row="5" Grid.Column="0" Margin="5"
+                                  DataName="水平直管总长度" DataUnit="" DataFontSize="11"
+                                  DataValue="{Binding UpHorizontalPipeLength, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,
+                                        ValidatesOnDataErrors=True, Converter={StaticResource myConv}}"/>
+                    <uc:MyDataBox Grid.Row="5" Grid.Column="1" Margin="5"
+                                  DataName="" DataUnit="m"
+                                  DataValue="{Binding DownHorizontalPipeLength, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,
+                                        ValidatesOnDataErrors=True, Converter={StaticResource myConv}}"/>
+                    <uc:MyDataBox Grid.Row="6" Grid.Column="0" Margin="5"
+                                  DataName="管件总当量长度" DataUnit="" DataFontSize="11"
+                                  DataValue="{Binding UpToltalFittingLD, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,
+                                        ValidatesOnDataErrors=True, Converter={StaticResource myConv}}"/>
+                    <uc:MyDataBox Grid.Row="6" Grid.Column="1" Margin="5"
+                                  DataName="" DataUnit="∑L/D"
+                                  DataValue="{Binding DownToltalFittingLD, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,
+                                        ValidatesOnDataErrors=True, Converter={StaticResource myConv}}"/>
+                    <uc:MyDataBox Grid.Row="7" Grid.Column="0" Margin="5"
+                                  DataName="管件总阻力系数" DataUnit="" DataFontSize="11"
+                                  DataValue="{Binding UpToltalFittingK, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,
+                                        ValidatesOnDataErrors=True, Converter={StaticResource myConv}}"/>
+                    <uc:MyDataBox Grid.Row="7" Grid.Column="1" Margin="5"
+                                  DataName="" DataUnit="∑K"
+                                  DataValue="{Binding DownToltalFittingK, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,
+                                        ValidatesOnDataErrors=True, Converter={StaticResource myConv}}"/>
+                </Grid>
+            </GroupBox>
+
+            <GroupBox Header="计算结果" Margin="0,5">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+
+                    <uc:MyDataBox Grid.Row="0" Grid.Column="0" Margin="5"
+                                  DataName="循环倍率" DataUnit="" IsDataReadOnly="True"
+                                  DataToolTip="循环倍率：上升管内总流量与汽包产汽量之比&#13;推荐值: &#13;P &lt; 20 kg/cm2时,K为10~30 &#13;P &gt; 20 kg/cm2时,K为10~20"
+                                  DataValue="{Binding CycleRatio, StringFormat={}{0:F2},
+                                        ValidatesOnDataErrors=True, Converter={StaticResource myConv}}"/>
+                    <uc:MyDataBox Grid.Row="0" Grid.Column="1" Margin="5"
+                                  DataName="循环流速" DataUnit="m/s" IsDataReadOnly="True"
+                                  DataToolTip="循环流速：假定上升管内全部流量为水时的流速&#13;推荐值: 0.5~1.5 m/s"
+                                  DataValue="{Binding CycleVelocity, StringFormat={}{0:F2},
+                                        ValidatesOnDataErrors=True, Converter={StaticResource myConv}}"/>
+                    <uc:MyDataBox Grid.Row="1" Grid.Column="0" Margin="5"
+                                  DataName="上升管流型" IsDataReadOnly="True"
+                                  DataToolTip="上升管内为两相流，适宜流型为环状流，应避免出现柱状流"
+                                  DataValue="{Binding FlowRegime}"/>
+                </Grid>
+            </GroupBox>
+        </StackPanel>
+    </StackPanel>
+
+</mah:MetroWindow>
